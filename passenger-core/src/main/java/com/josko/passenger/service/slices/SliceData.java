@@ -1,8 +1,12 @@
 package com.josko.passenger.service.slices;
 
 
-public interface SliceData {
+import java.io.Serializable;
+
+public interface SliceData extends Serializable {
     enum Type {
         DETAILS
     }
+
+    boolean isEmpty();
 }
