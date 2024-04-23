@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.josko.passenger")
 @EntityScan("com.josko.passenger.**.entity")
 @EnableJpaRepositories(basePackages = "com.josko.passenger.**.repository")
 public class PassengerCoreApplication {

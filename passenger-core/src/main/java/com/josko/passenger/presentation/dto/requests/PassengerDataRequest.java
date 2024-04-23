@@ -1,0 +1,24 @@
+package com.josko.passenger.presentation.dto.requests;
+
+
+import com.josko.passenger.presentation.dto.keys.KeyModel;
+import com.josko.passenger.presentation.dto.slices.DataSliceModel;
+import lombok.*;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class PassengerDataRequest implements Serializable {
+
+    @Builder.Default
+    private List<DataSliceModel.Type> sliceTypes = new ArrayList<>();
+
+    private KeyModel query;
+}
