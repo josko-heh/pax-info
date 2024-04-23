@@ -1,6 +1,5 @@
 package com.josko.passenger.presentation.dto.slices;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.*;
 
@@ -12,7 +11,7 @@ import java.io.Serializable;
 @Setter
 @EqualsAndHashCode
 @ToString
-public class DataSliceModel implements Serializable {
+public class SliceDTO implements Serializable {
 
     public enum Type {
         PASSENGER_DETAILS
@@ -28,6 +27,6 @@ public class DataSliceModel implements Serializable {
 /*    @JsonSubTypes({
             @JsonSubTypes.Type(name = "PASSENGER_DETAILS", value = PassengerDetails.class),
     })*/
-    private DataSliceDataModel data;
+    private SliceDataDTO data;
 
 }

@@ -21,17 +21,16 @@ import java.io.Serializable;
         include = JsonTypeInfo.As.EXISTING_PROPERTY,
         property = "type",
         visible = true)
-/*@JsonSubTypes({
+@JsonSubTypes({
         @JsonSubTypes.Type(name = "TICKET_NUMBER", value = TicketNumberModel.class),
-        @JsonSubTypes.Type(name = "PNR_LOCATOR_AND_NAME", value = PnrLocatorAndNameModel.class),
-})*/
+//        @JsonSubTypes.Type(name = "PNR_LOCATOR_AND_NAME", value = PnrLocatorAndNameModel.class),
+})
 public abstract class KeyModel implements Serializable {
 
     private Type type;
 
     public enum Type {
-        TICKET_NUMBER,
-        PNR_LOCATOR_AND_NAME
+        TICKET_NUMBER
     }
 
 }

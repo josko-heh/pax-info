@@ -17,7 +17,7 @@ public class PassengerDataController {
 
 	@GetMapping
 	public ResponseEntity<PassengerData> getPassengerData(@RequestBody PassengerDataRequest request) {
-		var passengerData = dataProvider.retrieve(request.getSliceTypes(), request.getQuery());
+		var passengerData = dataProvider.retrieve(request.getRequestedTypes(), request.getKey());
 		return ResponseEntity.ok(passengerData);
 	}
 
