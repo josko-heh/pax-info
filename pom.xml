@@ -28,8 +28,9 @@
 
     <modules>
         <module>passenger-core</module>
-<!--        <module>passenger-interface</module>
-        <module>passenger-runtime</module>-->
+		<module>passenger-interface</module>
+		<!--        <module>passenger-interface</module>
+				<module>passenger-runtime</module>-->
     </modules>
 
     <build>

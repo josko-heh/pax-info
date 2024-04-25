@@ -1,11 +1,11 @@
 package com.josko.passenger.service.impl;
 
-import com.josko.passenger.presentation.dto.requests.PassengerUpdate;
+import com.josko.passenger.update.dto.PassengerUpdate;
 import com.josko.passenger.service.PassengerService;
 import com.josko.passenger.service.PassengerUpdateHandler;
 import com.josko.passenger.service.SliceHandler;
 import com.josko.passenger.service.mappers.KeyMapper;
-import com.josko.passenger.service.slices.SliceData;
+import com.josko.passenger.update.slices.SliceData;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.CloseableThreadContext;
 import org.springframework.stereotype.Component;

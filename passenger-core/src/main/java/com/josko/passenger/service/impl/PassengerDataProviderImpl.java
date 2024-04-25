@@ -1,6 +1,6 @@
 package com.josko.passenger.service.impl;
 
-import com.josko.passenger.presentation.dto.keys.KeyDTO;
+import com.josko.passenger.update.dto.keys.KeyDTO;
 import com.josko.passenger.presentation.dto.slices.SliceDTO;
 import com.josko.passenger.presentation.dto.slices.PassengerData;
 import com.josko.passenger.service.PassengerDataProvider;

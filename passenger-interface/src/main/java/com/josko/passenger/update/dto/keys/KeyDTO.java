@@ -1,4 +1,4 @@
-package com.josko.passenger.presentation.dto.keys;
+package com.josko.passenger.update.dto.keys;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -23,7 +23,6 @@ import java.io.Serializable;
         visible = true)
 @JsonSubTypes({
         @JsonSubTypes.Type(name = "TICKET_NUMBER", value = TicketNumberKeyDTO.class),
-//        @JsonSubTypes.Type(name = "PNR_LOCATOR_AND_NAME", value = PnrLocatorAndNameModel.class),
 })
 public abstract class KeyDTO implements Serializable {
 

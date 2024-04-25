@@ -1,4 +1,4 @@
-package com.josko.passenger.service.slices;
+package com.josko.passenger.update.slices;
 
 import lombok.*;
 

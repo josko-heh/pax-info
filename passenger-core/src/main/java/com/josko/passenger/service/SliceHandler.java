@@ -2,9 +2,9 @@ package com.josko.passenger.service;
 
 
 import com.josko.passenger.persistence.entity.PassengerEntity;
-import com.josko.passenger.presentation.dto.requests.UpdateMetaData;
-import com.josko.passenger.service.slices.Slice;
-import com.josko.passenger.service.slices.SliceData;
+import com.josko.passenger.update.dto.UpdateMetaData;
+import com.josko.passenger.update.slices.Slice;
+import com.josko.passenger.update.slices.SliceData;
 
 import java.util.UUID;
 

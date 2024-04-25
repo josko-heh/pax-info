@@ -1,4 +1,4 @@
-package com.josko.passenger.presentation.dto.requests;
+package com.josko.passenger.update.dto;
 
 public interface UpdateMetaData {
     String getDatasource();

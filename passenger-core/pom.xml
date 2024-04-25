@@ -14,10 +14,17 @@
 	
 	<properties>
 		<mapstruct.version>1.5.5.Final</mapstruct.version>
+		<camel.version>4.5.0</camel.version>
 	</properties>
 
 
 	<dependencies>
+		<dependency>
+			<groupId>com.josko.passenger</groupId>
+			<artifactId>passenger-interface</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
@@ -31,6 +38,18 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.camel.springboot</groupId>
+			<artifactId>camel-spring-boot-starter</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.camel.springboot</groupId>
+			<artifactId>camel-activemq-starter</artifactId>
+			<version>${camel.version}</version>
 		</dependency>
 
 		<dependency>

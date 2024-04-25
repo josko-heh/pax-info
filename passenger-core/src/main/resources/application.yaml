@@ -10,3 +10,15 @@ spring:
         change-log: classpath:database/changelog/db.changelog-master.xml
         database-change-log-table: pax_data_change_log
         database-change-log-lock-table: pax_data_change_log_lock
+    activemq:
+        packages:
+            trust-all: true
+logging:
+    level:
+        com:
+            josko: DEBUG
+            
+passenger:
+    update:
+        jms:
+            source: jms:queue:passenger.update

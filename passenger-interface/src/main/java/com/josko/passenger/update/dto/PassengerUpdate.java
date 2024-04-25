@@ -1,7 +1,7 @@
-package com.josko.passenger.presentation.dto.requests;
+package com.josko.passenger.update.dto;
 
-import com.josko.passenger.presentation.dto.keys.KeyDTO;
-import com.josko.passenger.service.slices.Slice;
+import com.josko.passenger.update.dto.keys.KeyDTO;
+import com.josko.passenger.update.slices.Slice;
 import lombok.Data;
 
 import java.io.Serial;

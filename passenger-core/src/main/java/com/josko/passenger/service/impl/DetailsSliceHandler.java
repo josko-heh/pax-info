@@ -1,11 +1,11 @@
 package com.josko.passenger.service.impl;
 
 import com.josko.passenger.persistence.entity.PassengerEntity;
-import com.josko.passenger.presentation.dto.requests.UpdateMetaData;
+import com.josko.passenger.update.dto.UpdateMetaData;
 import com.josko.passenger.service.SliceHandler;
-import com.josko.passenger.service.slices.PassengerDetailsData;
-import com.josko.passenger.service.slices.Slice;
-import com.josko.passenger.service.slices.SliceData;
+import com.josko.passenger.update.slices.PassengerDetailsData;
+import com.josko.passenger.update.slices.Slice;
+import com.josko.passenger.update.slices.SliceData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

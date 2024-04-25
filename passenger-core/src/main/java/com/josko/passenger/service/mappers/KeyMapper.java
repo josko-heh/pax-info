@@ -3,8 +3,8 @@ package com.josko.passenger.service.mappers;
 import com.josko.passenger.persistence.entity.keys.Key;
 import com.josko.passenger.persistence.entity.keys.KeyEntity;
 import com.josko.passenger.persistence.entity.keys.TicketNumberKeyEntity;
-import com.josko.passenger.presentation.dto.keys.KeyDTO;
-import com.josko.passenger.presentation.dto.keys.TicketNumberKeyDTO;
+import com.josko.passenger.update.dto.keys.KeyDTO;
+import com.josko.passenger.update.dto.keys.TicketNumberKeyDTO;
 import org.mapstruct.*;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public abstract class KeyMapper {
 
     public KeyEntity toEntity(KeyDTO dto) {
         return switch (dto.getType()) {
-            case TICKET_NUMBER -> toEntity(dto);
+            case TICKET_NUMBER -> toEntity((TicketNumberKeyDTO) dto);
         };
     }
 
