@@ -1,6 +1,6 @@
 package com.josko.passenger.presentation.dto.slices;
 
-import com.josko.passenger.presentation.dto.keys.KeyModel;
+import com.josko.passenger.presentation.dto.keys.KeyDTO;
 import lombok.*;
 
 import java.io.Serializable;
@@ -22,5 +22,5 @@ public class PassengerData implements Serializable {
     private List<SliceDTO> dataSlices = new ArrayList<>();
 
     @Builder.Default
-    private Set<KeyModel> keys = new HashSet<>();
+    private Set<KeyDTO> keys = new HashSet<>();
 }

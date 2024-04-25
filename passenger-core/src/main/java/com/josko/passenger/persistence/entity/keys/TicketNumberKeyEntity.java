@@ -9,6 +9,8 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
+import static com.josko.passenger.persistence.entity.keys.Key.Type.TKNE;
+
 @Entity
 @IdClass(TicketNumberKeyEntity.CompositeId.class)
 @Table(name = "pax_data_passenger_key_tkne")
@@ -38,6 +40,11 @@ public class TicketNumberKeyEntity extends KeyEntity {
     @Column(name = "ticket_number")
     private String ticketNumber;
 
+    @Override
+    public Type getType() {
+        return TKNE;
+    }
+    
     @Override
     public String toString() {
         return String.format("{<%s>@%s%s#%s}", ticketNumber, carrier, flightNumber, departureDate);

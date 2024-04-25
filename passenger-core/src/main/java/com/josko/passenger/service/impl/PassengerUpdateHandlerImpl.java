@@ -4,19 +4,18 @@ import com.josko.passenger.presentation.dto.requests.PassengerUpdate;
 import com.josko.passenger.service.PassengerService;
 import com.josko.passenger.service.PassengerUpdateHandler;
 import com.josko.passenger.service.SliceHandler;
+import com.josko.passenger.service.mappers.KeyMapper;
 import com.josko.passenger.service.slices.SliceData;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.CloseableThreadContext;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static com.josko.passenger.config.Definitions.PAX_ID_MDC;
-import static java.util.Optional.ofNullable;
 
 @Component
 @Log4j2
@@ -37,22 +36,17 @@ public class PassengerUpdateHandlerImpl implements PassengerUpdateHandler {
 
     @Override
     public void handle(PassengerUpdate passengerUpdate) {
-
-        final var keys = keyMapper.mapFromDTO(passengerUpdate.getKeys());
-        
+        final var keys = keyMapper.toEntities(passengerUpdate.getKeys());
         final var slices = passengerUpdate.getSlices();
-
-        if (!slices.isEmpty()) {
-            log.debug("Handling update for passenger with keys {}", passengerUpdate.getKeys().stream()
-                    .map(Object::toString)
-                    .collect(Collectors.joining(",")));
-        }
-        // todo else return;?
 
         var passengerIDOpt = passengerService.getPassengerID(keys);
 
         if (passengerIDOpt.isEmpty() && slices.isEmpty())
             return;
+        
+        log.debug("Handling update for passenger with keys {}", passengerUpdate.getKeys().stream()
+                .map(Object::toString)
+                .collect(Collectors.joining(",")));
 
         final var passengerId = passengerIDOpt
                 .orElseGet(() -> passengerService.createPassenger(keys).getPassengerId());

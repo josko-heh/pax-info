@@ -1,10 +1,9 @@
 package com.josko.passenger.service.impl;
 
-import com.josko.passenger.presentation.dto.keys.KeyModel;
+import com.josko.passenger.presentation.dto.keys.KeyDTO;
 import com.josko.passenger.presentation.dto.slices.SliceDTO;
 import com.josko.passenger.presentation.dto.slices.PassengerData;
 import com.josko.passenger.service.PassengerDataProvider;
-import com.josko.passenger.service.PassengerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.CloseableThreadContext.Instance;
@@ -28,7 +27,7 @@ public class PassengerDataProviderImpl implements PassengerDataProvider {
     private final KeyMapper keyMapper;*/
 
     @Override
-    public PassengerData retrieve(final List<SliceDTO.Type> dataSliceTypes, final KeyModel query) {
+    public PassengerData retrieve(final List<SliceDTO.Type> dataSliceTypes, final KeyDTO query) {
         final UUID passengerID = UUID.randomUUID();/*
         final UUID passengerID = paxService.retrievePassengerID(Collections.singletonList(keyMapper.toEntity(query)))
                 .orElseThrow(() -> new PassengerModuleException("No passenger entity found.", HttpStatus.NOT_FOUND));

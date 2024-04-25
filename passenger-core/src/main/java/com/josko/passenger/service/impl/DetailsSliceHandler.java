@@ -15,7 +15,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class DetailsSliceHandler implements SliceHandler<PassengerDetailsData> {
 
-    private final SliceService<PassengerDetailsData> sliceService;
+//    private final SliceService<PassengerDetailsData> sliceService;
 
     @Override
     public SliceData.Type accepts() {
@@ -24,11 +24,11 @@ public class DetailsSliceHandler implements SliceHandler<PassengerDetailsData> {
 
     @Override
     public void handle(UUID passengerId, UpdateMetaData metaData, Slice<PassengerDetailsData> slice) {
-        sliceService.persistSlice(passengerId, metaData, slice);
+//        sliceService.persistSlice(passengerId, metaData, slice);
     }
 
     @Override
     public void deleteSlice(PassengerEntity passenger) {
-        sliceService.deleteSlice(passenger);
+//        sliceService.deleteSlice(passenger);
     }
 }

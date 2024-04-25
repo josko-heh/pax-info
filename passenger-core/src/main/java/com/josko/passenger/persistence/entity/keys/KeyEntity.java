@@ -10,7 +10,7 @@ import lombok.Setter;
 @MappedSuperclass
 @Getter
 @Setter
-public abstract class KeyEntity {
+public abstract class KeyEntity implements Key {
 
     @ManyToOne
     @JoinColumn(name = "passenger_id")

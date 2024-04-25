@@ -1,6 +1,6 @@
 package com.josko.passenger.presentation.dto.requests;
 
-import com.josko.passenger.presentation.dto.keys.KeyModel;
+import com.josko.passenger.presentation.dto.keys.KeyDTO;
 import com.josko.passenger.service.slices.Slice;
 import lombok.Data;
 
@@ -21,7 +21,7 @@ public class PassengerUpdate implements UpdateMetaData, Serializable {
 
     private String datasource;
     
-    private List<KeyModel> keys = new ArrayList<>();
+    private List<KeyDTO> keys = new ArrayList<>();
 
     private List<Slice> slices = new ArrayList<>();
 

@@ -22,10 +22,10 @@ import java.io.Serializable;
         property = "type",
         visible = true)
 @JsonSubTypes({
-        @JsonSubTypes.Type(name = "TICKET_NUMBER", value = TicketNumberModel.class),
+        @JsonSubTypes.Type(name = "TICKET_NUMBER", value = TicketNumberKeyDTO.class),
 //        @JsonSubTypes.Type(name = "PNR_LOCATOR_AND_NAME", value = PnrLocatorAndNameModel.class),
 })
-public abstract class KeyModel implements Serializable {
+public abstract class KeyDTO implements Serializable {
 
     private Type type;
 
