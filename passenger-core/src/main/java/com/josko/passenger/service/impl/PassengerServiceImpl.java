@@ -1,44 +1,49 @@
 package com.josko.passenger.service.impl;
 
 import com.google.common.collect.Sets;
+import com.josko.passenger.exceptions.PassengerModuleException;
 import com.josko.passenger.persistence.entity.PassengerEntity;
 import com.josko.passenger.persistence.entity.keys.KeyEntity;
 import com.josko.passenger.persistence.repository.PassengerRepository;
 import com.josko.passenger.service.PassengerService;
+import com.josko.passenger.service.provider.SliceProvider;
+import com.josko.passenger.update.slices.Slice;
+import com.josko.passenger.update.slices.SliceData;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.CloseableThreadContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.function.Function;
 
 import static com.josko.passenger.config.Definitions.PAX_ID_MDC;
+import static java.util.stream.Collectors.toMap;
+import static java.util.stream.Collectors.toSet;
 
 @Service
 @Log4j2
 public class PassengerServiceImpl implements PassengerService {
 
     private final PassengerRepository repository;
+    private final Map<SliceData.Type, SliceProvider<?>> providers;
 
     
     @Autowired
-    public PassengerServiceImpl(PassengerRepository repository) {
+    public PassengerServiceImpl(PassengerRepository repository,
+                                List<SliceProvider<?>> providers) {
 		this.repository = repository;
+        this.providers = providers.stream()
+                .collect(toMap(SliceProvider::accepts, Function.identity()));
 	}
     
     @Override
     public Optional<PassengerEntity> getPassenger(UUID passengerId) {
         return repository.findById(passengerId);
-    }
-
-    @Override
-    public Optional<PassengerEntity> getPassenger(Collection<KeyEntity> keys) {
-        return keys.stream()
-                .flatMap(key -> repository.findByKey(key, key.getClass()).stream())
-                .findFirst();
     }
 
     @Override
@@ -57,13 +62,15 @@ public class PassengerServiceImpl implements PassengerService {
     }
     
     @Override
-    public List<KeyEntity> getPassengerKeys(PassengerEntity passenger) {
-        return getPassengerKeys(passenger.getPassengerId());
+    public Set<KeyEntity> getPassengerKeys(UUID passengerId) {
+        return new HashSet<>(repository.findKeys(passengerId));
     }
-    
+
     @Override
-    public List<KeyEntity> getPassengerKeys(UUID passengerId) {
-        return repository.findKeys(passengerId);
+    public Set<Slice> retrieveSlices(UUID passengerId, Collection<SliceData.Type> requestedSlices) {
+        return requestedSlices.stream()
+                .map(slice -> retrieveSlice(passengerId, slice))
+                .collect(toSet());
     }
 
     @Override
@@ -103,5 +110,16 @@ public class PassengerServiceImpl implements PassengerService {
         final var existingKeys = new HashSet<>(repository.findKeys(passengerID));
 
         return Sets.difference(keys, existingKeys);
+    }
+
+    private Slice retrieveSlice(UUID passenger, SliceData.Type requestedSlice) {
+
+        final SliceProvider provider = providers.get(requestedSlice);
+
+        if (provider == null) {
+            throw new PassengerModuleException("No provider for slice " + requestedSlice.name(), HttpStatus.NOT_IMPLEMENTED);
+        }
+
+        return provider.provide(passenger);
     }
 }

@@ -4,5 +4,5 @@ import java.io.Serializable;
 
 public interface SliceDataDTO extends Serializable {
 
-    boolean isDataSliceEmpty();
+    boolean isSliceDataEmpty();
 }

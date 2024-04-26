@@ -29,7 +29,7 @@ public abstract class KeyMapper {
     }
 
     public abstract Set<KeyEntity> toEntities(List<KeyDTO> dtos);
-    public abstract Set<KeyDTO> toDTOs(List<KeyEntity> entities);
+    public abstract Set<KeyDTO> toDTOs(Set<KeyEntity> entities);
 
     protected abstract TicketNumberKeyEntity toEntity(TicketNumberKeyDTO dto);
     protected abstract TicketNumberKeyDTO toDTO(TicketNumberKeyEntity entity);

@@ -1,5 +1,6 @@
 package com.josko.passenger.presentation.dto.slices;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.*;
 
@@ -17,16 +18,16 @@ public class SliceDTO implements Serializable {
         PASSENGER_DETAILS
     }
 
-    private Type dataSlice;
+    private Type type;
 
     @JsonTypeInfo(
             use = JsonTypeInfo.Id.NAME,
             include = JsonTypeInfo.As.EXTERNAL_PROPERTY,
-            property = "data_slice",
+            property = "type",
             visible = true)
-/*    @JsonSubTypes({
-            @JsonSubTypes.Type(name = "PASSENGER_DETAILS", value = PassengerDetails.class),
-    })*/
+    @JsonSubTypes({
+            @JsonSubTypes.Type(name = "PASSENGER_DETAILS", value = PassengerDetailsDTO.class),
+    })
     private SliceDataDTO data;
 
 }
