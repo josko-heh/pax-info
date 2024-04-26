@@ -23,7 +23,7 @@ public class PassengerDetailsData implements SliceData {
     private String city;
     private String zipCode;
     private String streetAndNumber;
-    private String county;
+    private String country;
     private String language;
 
     @Override

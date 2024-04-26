@@ -56,7 +56,6 @@ public class PassengerUpdateHandlerImpl implements PassengerUpdateHandler {
                                                 .handle(passengerId, passengerUpdate, slice));
 
             passengerService.saveKeys(passengerId, keys);
-            passengerService.setPaxPurgeDate(passengerId);
         }
     }
 }
