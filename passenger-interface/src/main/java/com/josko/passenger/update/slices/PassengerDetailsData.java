@@ -12,19 +12,17 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"firstName", "lastName", "dateOfBirth"})
 public class PassengerDetailsData implements SliceData {
-
     @Serial
     private static final long serialVersionUID = 1L;
+    
     private String firstName;
     private String lastName;
     private String title;
     private String gender;
     private LocalDate dateOfBirth;
-    private String addressType;
     private String city;
     private String zipCode;
     private String streetAndNumber;
-    private String addressCountry;
     private String county;
     private String language;
 

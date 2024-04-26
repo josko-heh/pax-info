@@ -2,7 +2,7 @@ package com.josko.passenger.presentation.controller;
 
 import com.josko.passenger.presentation.dto.requests.PassengerDataRequest;
 import com.josko.passenger.presentation.dto.slices.PassengerData;
-import com.josko.passenger.service.PassengerDataProvider;
+import com.josko.passenger.service.provider.PassengerDataProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

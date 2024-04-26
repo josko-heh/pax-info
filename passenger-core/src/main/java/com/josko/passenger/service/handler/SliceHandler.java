@@ -1,4 +1,4 @@
-package com.josko.passenger.service;
+package com.josko.passenger.service.handler;
 
 
 import com.josko.passenger.persistence.entity.PassengerEntity;

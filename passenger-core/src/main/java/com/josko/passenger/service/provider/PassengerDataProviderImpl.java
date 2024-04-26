@@ -1,9 +1,8 @@
-package com.josko.passenger.service.impl;
+package com.josko.passenger.service.provider;
 
 import com.josko.passenger.update.dto.keys.KeyDTO;
 import com.josko.passenger.presentation.dto.slices.SliceDTO;
 import com.josko.passenger.presentation.dto.slices.PassengerData;
-import com.josko.passenger.service.PassengerDataProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.CloseableThreadContext.Instance;

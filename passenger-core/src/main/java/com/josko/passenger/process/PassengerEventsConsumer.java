@@ -1,7 +1,7 @@
 package com.josko.passenger.process;
 
 import com.josko.passenger.update.dto.PassengerUpdate;
-import com.josko.passenger.service.PassengerUpdateHandler;
+import com.josko.passenger.service.handler.PassengerUpdateHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.camel.Exchange;

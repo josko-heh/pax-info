@@ -1,8 +1,8 @@
-package com.josko.passenger.service.impl;
+package com.josko.passenger.service.handler;
 
 import com.josko.passenger.persistence.entity.PassengerEntity;
+import com.josko.passenger.service.slice.SliceService;
 import com.josko.passenger.update.dto.UpdateMetaData;
-import com.josko.passenger.service.SliceHandler;
 import com.josko.passenger.update.slices.PassengerDetailsData;
 import com.josko.passenger.update.slices.Slice;
 import com.josko.passenger.update.slices.SliceData;
@@ -15,7 +15,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class DetailsSliceHandler implements SliceHandler<PassengerDetailsData> {
 
-//    private final SliceService<PassengerDetailsData> sliceService;
+    private final SliceService<PassengerDetailsData> sliceService;
 
     @Override
     public SliceData.Type accepts() {
@@ -24,11 +24,11 @@ public class DetailsSliceHandler implements SliceHandler<PassengerDetailsData> {
 
     @Override
     public void handle(UUID passengerId, UpdateMetaData metaData, Slice<PassengerDetailsData> slice) {
-//        sliceService.persistSlice(passengerId, metaData, slice);
+        sliceService.persistSlice(passengerId, metaData, slice);
     }
 
     @Override
     public void deleteSlice(PassengerEntity passenger) {
-//        sliceService.deleteSlice(passenger);
+        sliceService.deleteSlice(passenger);
     }
 }

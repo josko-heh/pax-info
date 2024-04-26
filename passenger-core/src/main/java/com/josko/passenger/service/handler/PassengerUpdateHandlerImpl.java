@@ -1,9 +1,7 @@
-package com.josko.passenger.service.impl;
+package com.josko.passenger.service.handler;
 
 import com.josko.passenger.update.dto.PassengerUpdate;
 import com.josko.passenger.service.PassengerService;
-import com.josko.passenger.service.PassengerUpdateHandler;
-import com.josko.passenger.service.SliceHandler;
 import com.josko.passenger.service.mappers.KeyMapper;
 import com.josko.passenger.update.slices.SliceData;
 import lombok.extern.log4j.Log4j2;

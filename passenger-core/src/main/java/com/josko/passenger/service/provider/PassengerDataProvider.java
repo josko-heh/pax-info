@@ -1,4 +1,4 @@
-package com.josko.passenger.service;
+package com.josko.passenger.service.provider;
 
 import com.josko.passenger.update.dto.keys.KeyDTO;
 import com.josko.passenger.presentation.dto.slices.SliceDTO;
