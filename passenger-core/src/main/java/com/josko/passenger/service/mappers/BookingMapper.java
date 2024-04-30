@@ -14,7 +14,6 @@ public abstract class BookingMapper {
 
 	@Mapping(target = "createdTs", ignore = true)
 	@Mapping(target = "updatedTs", ignore = true)
-	@Mapping(target = "purgeTs", ignore = true)
 	public abstract BookingEntity fromDto(PassengerEntity passenger, BookingData data, UpdateMetaData meta);
 
 	public abstract BookingData toDto(BookingEntity entity);

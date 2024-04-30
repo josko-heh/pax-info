@@ -25,9 +25,6 @@ public class SliceMetaData {
     @Column(name = "datasource_name")
     private String datasource;
 
-    @Column(name = "purge_ts")
-    private Instant purgeTs;
-
     @PrePersist
     public void onPrePersist() {
         this.createdTs = Instant.now();

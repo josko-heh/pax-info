@@ -7,5 +7,6 @@
     <include file="release-1.0/create_tkne_table.sql" relativeToChangelogFile="true" />
     <include file="release-1.0/create_passenger_details_table.sql" relativeToChangelogFile="true" />
     <include file="release-1.0/create_booking_table.sql" relativeToChangelogFile="true" />
+    <include file="release-1.0/remove_purgets_from_slices.sql" relativeToChangelogFile="true" />
 
 </databaseChangeLog>
