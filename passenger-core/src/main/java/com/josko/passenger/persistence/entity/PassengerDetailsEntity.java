@@ -11,7 +11,7 @@ import java.util.UUID;
 @Table(name = "pax_data_passenger_details")
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = true, of = {"firstName", "lastName", "dateOfBirth"})
+@EqualsAndHashCode(callSuper = false, of = {"firstName", "lastName", "dateOfBirth"})
 public class PassengerDetailsEntity extends SliceMetaData {
 
     @Id
@@ -19,7 +19,7 @@ public class PassengerDetailsEntity extends SliceMetaData {
     @Column(name = "details_id")
     private UUID detailsId;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "passenger_id")
     private PassengerEntity passenger;
 

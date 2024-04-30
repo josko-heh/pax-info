@@ -1,5 +1,6 @@
 package com.josko.passenger.service.handler;
 
+import com.josko.passenger.service.slice.SliceService;
 import com.josko.passenger.update.dto.PassengerUpdate;
 import com.josko.passenger.service.PassengerService;
 import com.josko.passenger.service.mappers.KeyMapper;
@@ -22,14 +23,14 @@ public class PassengerUpdateHandlerImpl implements PassengerUpdateHandler {
     private final PassengerService passengerService;
     private final KeyMapper keyMapper;
 
-    private final Map<SliceData.Type, SliceHandler<?>> sliceHandlers;
+    private final Map<SliceData.Type, SliceService<?>> sliceServices;
 
     public PassengerUpdateHandlerImpl(PassengerService passengerService, KeyMapper keyMapper,
-                                      List<SliceHandler<?>> sliceHandlers) {
+                                      List<SliceService<?>> sliceServices) {
         this.passengerService = passengerService;
         this.keyMapper = keyMapper;
-        this.sliceHandlers = sliceHandlers.stream().collect(
-                Collectors.toMap(SliceHandler::accepts, Function.identity()));
+        this.sliceServices = sliceServices.stream().collect(
+                Collectors.toMap(SliceService::accepts, Function.identity()));
     }
 
     @Override
@@ -51,9 +52,9 @@ public class PassengerUpdateHandlerImpl implements PassengerUpdateHandler {
 
         try (final CloseableThreadContext.Instance ctc = CloseableThreadContext.put(PAX_ID_MDC, passengerId.toString())) {
             slices.stream()
-                    .filter(slice -> sliceHandlers.containsKey(slice.getName()))
-                    .forEach(slice -> sliceHandlers.get(slice.getName())
-                                                .handle(passengerId, passengerUpdate, slice));
+                    .filter(slice -> sliceServices.containsKey(slice.getName()))
+                    .forEach(slice -> sliceServices.get(slice.getName())
+                                                .persistSlice(passengerId, passengerUpdate, slice));
 
             passengerService.saveKeys(passengerId, keys);
         }

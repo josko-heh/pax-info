@@ -1,11 +1,10 @@
-package com.josko.passenger.service.impl;
+package com.josko.passenger.service;
 
 import com.google.common.collect.Sets;
 import com.josko.passenger.exceptions.PassengerModuleException;
 import com.josko.passenger.persistence.entity.PassengerEntity;
 import com.josko.passenger.persistence.entity.keys.KeyEntity;
 import com.josko.passenger.persistence.repository.PassengerRepository;
-import com.josko.passenger.service.PassengerService;
 import com.josko.passenger.service.provider.SliceProvider;
 import com.josko.passenger.update.slices.Slice;
 import com.josko.passenger.update.slices.SliceData;

@@ -10,6 +10,8 @@ import java.util.UUID;
 
 public interface SliceService<T extends SliceData> {
 
+    SliceData.Type accepts();
+    
     void persistSlice(UUID passengerId, UpdateMetaData metaData, Slice<T> slice);
 
     void deleteSlice(PassengerEntity passenger);
