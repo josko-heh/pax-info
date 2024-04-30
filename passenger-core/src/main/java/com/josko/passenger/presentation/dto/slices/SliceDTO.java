@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class SliceDTO implements Serializable {
 
     public enum Type {
-        PASSENGER_DETAILS
+        PASSENGER_DETAILS, BOOKING
     }
 
     private Type type;
@@ -27,6 +27,7 @@ public class SliceDTO implements Serializable {
             visible = true)
     @JsonSubTypes({
             @JsonSubTypes.Type(name = "PASSENGER_DETAILS", value = PassengerDetailsDTO.class),
+            @JsonSubTypes.Type(name = "BOOKING", value = BookingDTO.class),
     })
     private SliceDataDTO data;
 

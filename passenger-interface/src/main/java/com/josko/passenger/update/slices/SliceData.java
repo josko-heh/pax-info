@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 public interface SliceData extends Serializable {
     enum Type {
-        DETAILS
+        DETAILS, BOOKING
     }
 
     boolean isEmpty();
