@@ -23,6 +23,7 @@ import java.io.Serializable;
         visible = true)
 @JsonSubTypes({
         @JsonSubTypes.Type(name = "TICKET_NUMBER", value = TicketNumberKeyDTO.class),
+        @JsonSubTypes.Type(name = "PNR", value = PnrKeyDTO.class)
 })
 public abstract class KeyDTO implements Serializable {
 
