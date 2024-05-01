@@ -14,6 +14,7 @@ public abstract class PassengerDetailsMapper {
 
 	@Mapping(target = "createdTs", ignore = true)
 	@Mapping(target = "updatedTs", ignore = true)
+	@Mapping(target = "detailsId", ignore = true)
 	public abstract PassengerDetailsEntity fromDto(PassengerEntity passenger, PassengerDetailsData data, UpdateMetaData meta);
 
 	public abstract PassengerDetailsData toDto(PassengerDetailsEntity entity);

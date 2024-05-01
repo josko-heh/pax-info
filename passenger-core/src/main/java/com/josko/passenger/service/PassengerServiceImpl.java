@@ -48,7 +48,7 @@ public class PassengerServiceImpl implements PassengerService {
     @Override
     public Optional<UUID> getPassengerID(Collection<KeyEntity> keys) {
 		Optional<UUID> id = keys.stream()
-                .flatMap(key -> repository.findPassengerIdByKey(key, key.getClass()).stream())
+                .flatMap(key -> repository.findPassengerIdByKey(key).stream())
                 .findFirst();
         
         id.ifPresent(it -> {

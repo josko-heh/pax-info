@@ -6,6 +6,6 @@ public interface Key {
     Type getType();
 
     enum Type {
-        TKNE
+        TKNE, PNR
     }
 }

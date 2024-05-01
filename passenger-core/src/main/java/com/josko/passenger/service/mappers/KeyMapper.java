@@ -17,7 +17,8 @@ public abstract class KeyMapper {
     public KeyEntity toEntity(KeyDTO dto) {
         return switch (dto.getType()) {
             case TICKET_NUMBER -> toEntity((TicketNumberKeyDTO) dto);
-        };
+			case PNR -> null;
+		};
     }
 
     public KeyDTO toDTO(KeyEntity entity) {

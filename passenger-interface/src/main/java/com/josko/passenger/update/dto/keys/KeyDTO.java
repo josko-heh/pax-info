@@ -29,7 +29,7 @@ public abstract class KeyDTO implements Serializable {
     private Type type;
 
     public enum Type {
-        TICKET_NUMBER
+        TICKET_NUMBER, PNR
     }
 
 }

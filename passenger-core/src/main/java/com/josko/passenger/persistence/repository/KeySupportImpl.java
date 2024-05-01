@@ -1,11 +1,7 @@
 package com.josko.passenger.persistence.repository;
 
-import com.josko.passenger.persistence.entity.PassengerEntity;
 import com.josko.passenger.persistence.entity.PassengerEntity_;
-import com.josko.passenger.persistence.entity.keys.KeyEntity;
-import com.josko.passenger.persistence.entity.keys.KeyEntity_;
-import com.josko.passenger.persistence.entity.keys.TicketNumberKeyEntity;
-import com.josko.passenger.persistence.entity.keys.TicketNumberKeyEntity_;
+import com.josko.passenger.persistence.entity.keys.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.*;
@@ -25,47 +21,32 @@ public class KeySupportImpl implements KeySupport {
     
 
     @Override
-    public Optional<PassengerEntity> findByKey(KeyEntity key, Class<? extends KeyEntity> type) {
-        
-        final CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        
-        final CriteriaQuery<PassengerEntity> cq = cb.createQuery(PassengerEntity.class);
-        
-        final Predicate clause;
-
-        final Path<PassengerEntity> from;
-            
-        if(TicketNumberKeyEntity.class.isAssignableFrom(type)) {
-            Root<TicketNumberKeyEntity> root = cq.from(TicketNumberKeyEntity.class);
-
-            from = root.get(TicketNumberKeyEntity_.passenger);
-
-            clause = getPredicate((TicketNumberKeyEntity) key, cb, root);
-
-        } else {
-            throw new UnsupportedOperationException("Implement me!");
-        }
-        
-        cq.select(from).where(clause);
-        
-        return entityManager.createQuery(cq).getResultList().stream().findFirst();
-    }
-
-    @Override
-    public Optional<UUID> findPassengerIdByKey(KeyEntity key, Class<? extends KeyEntity> type) {
+    public Optional<UUID> findPassengerIdByKey(KeyEntity key) {
         final CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         final CriteriaQuery<UUID> cq = cb.createQuery(UUID.class);
         final Predicate clause;
         final Path<UUID> from;
             
-        if(TicketNumberKeyEntity.class.isAssignableFrom(type)) {
+        if(key instanceof TicketNumberKeyEntity tkneKey) {
             Root<TicketNumberKeyEntity> root = cq.from(TicketNumberKeyEntity.class);
 
-            from = root.get(TicketNumberKeyEntity_.passenger).get(PassengerEntity_.passengerId);
+            from = root.get(KeyEntity_.passenger).get(PassengerEntity_.passengerId);
 
-            clause = getPredicate((TicketNumberKeyEntity) key, cb, root);
+            clause = getPredicate(tkneKey, cb, root);
+            
+        } else if(key instanceof PnrKeyEntity pnrKey){
+            Root<PnrKeyEntity> root = cq.from(PnrKeyEntity.class);
+
+            from = root.get(KeyEntity_.passenger).get(PassengerEntity_.passengerId);
+
+            var equalLocator = cb.equal(root.get(PnrKeyEntity_.locator), pnrKey.getLocator());
+            var equalFirstName = cb.equal(root.get(PnrKeyEntity_.firstName), pnrKey.getFirstName());
+            var equalLastName = cb.equal(root.get(PnrKeyEntity_.lastName), pnrKey.getLastName());
+
+            clause = cb.and(equalLocator, equalFirstName, equalLastName);
+
         } else {
-            throw new UnsupportedOperationException("Implement me!");
+            throw new UnsupportedOperationException("Not implemented!");
         }
         
         cq.select(from).where(clause);
@@ -94,12 +75,6 @@ public class KeySupportImpl implements KeySupport {
 
         clause = cb.and(predicates.toArray(new Predicate[0]));
         return clause;
-    }
-
-
-    @Override
-    public List<KeyEntity> findKeys(PassengerEntity passenger) {
-        return findKeys(passenger.getPassengerId());
     }
 
     @Override
