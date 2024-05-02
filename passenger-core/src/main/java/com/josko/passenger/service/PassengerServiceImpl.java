@@ -19,6 +19,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import static com.josko.passenger.config.Definitions.PAX_ID_MDC;
 import static java.util.stream.Collectors.toMap;
@@ -27,6 +28,8 @@ import static java.util.stream.Collectors.toSet;
 @Service
 @Log4j2
 public class PassengerServiceImpl implements PassengerService {
+
+    private static final Supplier<Instant> PURGE_TS = () -> Instant.now().plus(10, ChronoUnit.DAYS);
 
     private final PassengerRepository repository;
     private final Map<SliceData.Type, SliceProvider<?>> providers;
@@ -73,10 +76,15 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     @Override
+    public void setPurgeTs(UUID passengerId) {
+        repository.updatePassengerPurgeTs(PURGE_TS.get(), passengerId);
+    }
+
+    @Override
     @Transactional
     public PassengerEntity createPassenger(Set<KeyEntity> keys) {
         final var passenger = new PassengerEntity();
-        passenger.setPurgeTs(Instant.now().plus(10, ChronoUnit.DAYS));
+        passenger.setPurgeTs(PURGE_TS.get());
         repository.save(passenger);
         
         try (final CloseableThreadContext.Instance ctc = CloseableThreadContext.put(PAX_ID_MDC, passenger.getPassengerId().toString())) {

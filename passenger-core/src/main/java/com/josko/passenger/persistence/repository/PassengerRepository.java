@@ -16,11 +16,11 @@ public interface PassengerRepository extends JpaRepository<PassengerEntity, UUID
 
     @Modifying
     @Transactional
-    @Query(value = "DELETE FROM pax_data_passenger WHERE purge_ts < ?1 LIMIT ?2", nativeQuery = true)
-    void purgePassengers(final Instant purgeTs, final Integer batchSize);
+    @Query("DELETE FROM PassengerEntity p WHERE p.purgeTs < ?1")
+    void purgePassengers(Instant purgeTs);
 
     @Modifying
     @Transactional
     @Query("UPDATE PassengerEntity p SET p.purgeTs = ?1 WHERE p.passengerId = ?2")
-    void updatePassengerPurgeTs(final Instant purgeTs, final UUID passengerId);
+    void updatePassengerPurgeTs(Instant purgeTs, UUID passengerId);
 }

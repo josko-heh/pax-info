@@ -56,7 +56,11 @@ public class PassengerUpdateHandlerImpl implements PassengerUpdateHandler {
                     .forEach(slice -> sliceServices.get(slice.getName())
                                                 .persistSlice(passengerId, passengerUpdate, slice));
 
-            passengerService.saveKeys(passengerId, keys);
+            // execute only on update, not create
+            if (passengerIDOpt.isPresent()) {
+                passengerService.saveKeys(passengerId, keys);
+                passengerService.setPurgeTs(passengerId);
+            }
         }
     }
 }
