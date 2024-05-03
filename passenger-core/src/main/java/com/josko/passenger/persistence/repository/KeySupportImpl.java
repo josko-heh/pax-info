@@ -78,11 +78,11 @@ public class KeySupportImpl implements KeySupport {
     }
 
     @Override
-    public List<KeyEntity> findKeys(UUID passengerId) {
+    public Set<KeyEntity> findKeys(UUID passengerId) {
         final var keyTypes = Set.of(TicketNumberKeyEntity.class, PnrKeyEntity.class);
 
         final var cb = entityManager.getCriteriaBuilder();
-        final var results = new ArrayList<KeyEntity>();
+        final var results = new HashSet<KeyEntity>();
 
         for (Class keyType : keyTypes) {
             final var cq = cb.createQuery(keyType);

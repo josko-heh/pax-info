@@ -65,7 +65,7 @@ public class PassengerServiceImpl implements PassengerService {
     
     @Override
     public Set<KeyEntity> getPassengerKeys(UUID passengerId) {
-        return new HashSet<>(repository.findKeys(passengerId));
+        return repository.findKeys(passengerId);
     }
 
     @Override
@@ -114,7 +114,7 @@ public class PassengerServiceImpl implements PassengerService {
     }
 
     private Set<KeyEntity> getNewKeys(UUID passengerID, Set<KeyEntity> keys) {
-        final var existingKeys = new HashSet<>(repository.findKeys(passengerID));
+        final var existingKeys = repository.findKeys(passengerID);
 
         return Sets.difference(keys, existingKeys);
     }
