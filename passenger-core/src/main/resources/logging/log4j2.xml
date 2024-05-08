@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration>
+    <Properties>
+        <Property name="logsDir">logs</Property>
+        <Property name="archiveDir">logs/archive</Property>
+        <Property name="maxLogSize">250 MB</Property>
+        <Property name="maxLogFiles">99</Property>
+    </Properties>
+
+    <Appenders>
+        <RollingFile name="system" fileName="${logsDir}/system.log" filePattern="${archiveDir}/system.%d{yyyy-MM-dd}-%02i.log.gz">
+            <PatternLayout>
+                <Pattern>[%d{HH:mm:ss,SSS}] %-5p [#%-3T] [%logger{1}] %throwable{none} - %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="${maxLogSize}"/>
+            </Policies>
+            <DefaultRolloverStrategy max="${maxLogFiles}"/>
+        </RollingFile>
+
+        <RollingFile name="error" fileName="${logsDir}/error.log" filePattern="${archiveDir}/error.%d{yyyy-MM-dd}-%02i.log.gz">
+            <PatternLayout>
+                <Pattern>[%d{HH:mm:ss,SSS}] %-5p [#%-3T] [%X{trace_id}] - %m %throwable{short.message}%n%rEx</Pattern>
+            </PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="${maxLogSize}"/>
+            </Policies>
+            <DefaultRolloverStrategy max="${maxLogFiles}"/>
+        </RollingFile>
+
+        <RollingFile name="data" fileName="${logsDir}/data.log" filePattern="${archiveDir}/data.%d{yyyy-MM-dd}-%02i.log.gz">
+            <PatternLayout>
+                <Pattern>[%d{HH:mm:ss,SSS}] [%X{trace_id}] %throwable{none}%m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="${maxLogSize}"/>
+            </Policies>
+            <DefaultRolloverStrategy max="${maxLogFiles}"/>
+        </RollingFile>
+
+        <RollingFile name="debug" fileName="${logsDir}/debug.log" filePattern="${archiveDir}/debug.%d{yyyy-MM-dd}-%02i.log.gz">
+            <PatternLayout>
+                <Pattern>[%d{HH:mm:ss,SSS}] %-5p [#%-3T] [%X{trace_id} %X{passenger_id}] %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <OnStartupTriggeringPolicy/>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="${maxLogSize}"/>
+            </Policies>
+            <DefaultRolloverStrategy max="${maxLogFiles}"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="systemLogger" additivity="false" level="INFO">
+            <AppenderRef ref="system" />
+        </Logger>
+
+        <Logger name="errorLogger" additivity="false" level="WARN">
+            <AppenderRef ref="error" />
+        </Logger>
+
+        <Logger name="dataLogger" additivity="false" level="INFO">
+            <AppenderRef ref="data" />
+        </Logger>
+
+        <Logger name="debugLogger" additivity="false" level="TRACE">
+            <AppenderRef ref="debug" />
+        </Logger>
+
+        
+        <Logger name="com.josko" additivity="false" level="DEBUG">
+            <AppenderRef ref="debug" />
+        </Logger>
+
+        <Logger name="org.hibernate" additivity="false" level="WARN">
+            <AppenderRef ref="system" />
+        </Logger>
+
+        <Logger name="org.springframework" additivity="false" level="WARN">
+            <AppenderRef ref="system" />
+        </Logger>
+
+        
+        <Root level="INFO">
+            <AppenderRef ref="system" />
+        </Root>
+    </Loggers>
+
+</Configuration>

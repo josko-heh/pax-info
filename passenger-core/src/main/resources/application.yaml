@@ -13,11 +13,10 @@ spring:
     activemq:
         packages:
             trust-all: true
+
 logging:
-    level:
-        com:
-            josko: DEBUG
-            
+    config: classpath:logging/log4j2.xml      
+
 passenger:
     update:
         jms:
