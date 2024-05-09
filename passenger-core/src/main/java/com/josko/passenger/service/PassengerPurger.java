@@ -17,7 +17,7 @@ public class PassengerPurger {
 
     private final PassengerRepository passengerRepository;
 
-    @Scheduled(cron = "${purging.cronExpression:* */15 * * * *}")
+    @Scheduled(cron = "${purging.cronExpression:0 */10 * * * *}")
     public void schedulePaxPurgeProcess() {
         log.info("Purging passengers");
         passengerRepository.purgePassengers(Instant.now());
