@@ -47,25 +47,23 @@ public class ResponseBodyAdviceLogger implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType,
                                   Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest,
                                   ServerHttpResponse serverHttpResponse) {
-        HttpServletRequest httpServletRequest = ((ServletServerHttpRequest) serverHttpRequest).getServletRequest();
-        HttpServletResponse httpServletResponse = ((ServletServerHttpResponse) serverHttpResponse).getServletResponse();
 
-        if(!httpServletRequest.getRequestURL().toString().contains("actuator")) {
-            final var status = httpServletResponse.getStatus();
-            
-            String body;
-            if(o == null) {
-                body = EMPTY;
-            } else {
-                try {
-                    body = mapper.writeValueAsString(o);
-                } catch (JsonProcessingException ex) {
-                    body = o.toString();
-                }
+        final var status = ((ServletServerHttpResponse) serverHttpResponse)
+                .getServletResponse()
+                .getStatus();
+        
+        String body;
+        if(o == null) {
+            body = EMPTY;
+        } else {
+            try {
+                body = mapper.writeValueAsString(o);
+            } catch (JsonProcessingException ex) {
+                body = o.toString();
             }
-
-            log.warn(RES, LOG_PATTERN, status, body);
         }
+
+        log.warn(RES, LOG_PATTERN, status, body);
 
         return o;
     }

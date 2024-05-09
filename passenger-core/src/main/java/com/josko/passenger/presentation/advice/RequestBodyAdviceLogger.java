@@ -48,30 +48,28 @@ public class RequestBodyAdviceLogger extends RequestBodyAdviceAdapter {
     public Object afterBodyRead(Object body, HttpInputMessage inputMessage, MethodParameter parameter, Type targetType,
             Class<? extends HttpMessageConverter<?>> converterType) {
 
-        if (!httpServletRequest.getRequestURL().toString().contains("actuator")) {
-            final Map<String, String> headers = new HashMap<>();
-            Enumeration<String> headerNames = httpServletRequest.getHeaderNames();
-            while (headerNames.hasMoreElements()) {
-                String key = headerNames.nextElement();
-                headers.put(key, httpServletRequest.getHeader(key));
-            }
-
-            final StringBuilder sb = new StringBuilder()
-                    .append(httpServletRequest.getMethod()).append(" ")
-                    .append(httpServletRequest.getRequestURL());
-
-            headers.forEach((k, v) -> sb.append(" -H \"").append(k).append(": ").append(v).append("\""));
-
-            sb.append(" -d '");
-            try {
-                sb.append(mapper.writeValueAsString(body));
-            } catch (JsonProcessingException ex) {
-                sb.append(body);
-            }
-            sb.append("'");
-
-            log.info(REQ, sb.toString());
+        final Map<String, String> headers = new HashMap<>();
+        Enumeration<String> headerNames = httpServletRequest.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String key = headerNames.nextElement();
+            headers.put(key, httpServletRequest.getHeader(key));
         }
+
+        final StringBuilder sb = new StringBuilder()
+                .append(httpServletRequest.getMethod()).append(" ")
+                .append(httpServletRequest.getRequestURL());
+
+        headers.forEach((k, v) -> sb.append(" -H \"").append(k).append(": ").append(v).append("\""));
+
+        sb.append(" -d '");
+        try {
+            sb.append(mapper.writeValueAsString(body));
+        } catch (JsonProcessingException ex) {
+            sb.append(body);
+        }
+        sb.append("'");
+
+        log.info(REQ, sb.toString());
 
         return super.afterBodyRead(body, inputMessage, parameter, targetType, converterType);
     }
