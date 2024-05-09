@@ -1,7 +1,9 @@
 package com.josko.passenger.presentation.advice;
 
+import com.josko.passenger.config.Definitions;
 import com.josko.passenger.exceptions.PassengerModuleException;
-import lombok.extern.log4j.Log4j2;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -13,20 +15,21 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Component
 @RestControllerAdvice
-@Log4j2
-public class ControllerAdvice {
+public class ExceptionHandlerAdvice {
 
+    private final Logger errorLog = LogManager.getLogger(Definitions.ERROR_LOGGER);
+    
     @ResponseBody
     @ExceptionHandler({RuntimeException.class})
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public void handleException(final RuntimeException exception) {
-        log.error(exception);
-        exception.printStackTrace();
+        errorLog.error(exception);
     }
 
     @ResponseBody
     @ExceptionHandler({PassengerModuleException.class})
     public ResponseEntity<String> handleException(final PassengerModuleException exception) {
+        errorLog.error(exception);
         return new ResponseEntity<>(exception.getMessage(), exception.getHttpStatus());
     }
 }

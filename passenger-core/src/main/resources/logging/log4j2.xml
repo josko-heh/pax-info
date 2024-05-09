@@ -22,7 +22,7 @@
 
         <RollingFile name="error" fileName="${logsDir}/error.log" filePattern="${archiveDir}/error.%d{yyyy-MM-dd}-%02i.log.gz">
             <PatternLayout>
-                <Pattern>[%d{HH:mm:ss,SSS}] %-5p [#%-3T] [%X{trace_id}] - %m %throwable{short.message}%n%rEx</Pattern>
+                <Pattern>[%d{HH:mm:ss,SSS}] %-5p [#%-3T] - %m %throwable{short.message}%n%rEx</Pattern>
             </PatternLayout>
             <Policies>
                 <OnStartupTriggeringPolicy/>
@@ -34,7 +34,7 @@
 
         <RollingFile name="data" fileName="${logsDir}/data.log" filePattern="${archiveDir}/data.%d{yyyy-MM-dd}-%02i.log.gz">
             <PatternLayout>
-                <Pattern>[%d{HH:mm:ss,SSS}] [%X{trace_id}] %throwable{none}%m%n</Pattern>
+                <Pattern>[%d{HH:mm:ss,SSS}] %marker %throwable{none}%m%n</Pattern>
             </PatternLayout>
             <Policies>
                 <OnStartupTriggeringPolicy/>
@@ -46,7 +46,7 @@
 
         <RollingFile name="debug" fileName="${logsDir}/debug.log" filePattern="${archiveDir}/debug.%d{yyyy-MM-dd}-%02i.log.gz">
             <PatternLayout>
-                <Pattern>[%d{HH:mm:ss,SSS}] %-5p [#%-3T] [%X{trace_id} %X{passenger_id}] %m%n</Pattern>
+                <Pattern>[%d{HH:mm:ss,SSS}] %-5p [#%-3T] [%X{passenger_id}] %m%n</Pattern>
             </PatternLayout>
             <Policies>
                 <OnStartupTriggeringPolicy/>

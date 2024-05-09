@@ -1,12 +1,14 @@
 package com.josko.passenger.service.handler;
 
-import com.josko.passenger.service.slice.SliceService;
-import com.josko.passenger.update.dto.PassengerUpdate;
+import com.josko.passenger.config.Definitions;
 import com.josko.passenger.service.PassengerService;
 import com.josko.passenger.service.mappers.KeyMapper;
+import com.josko.passenger.service.slice.SliceService;
+import com.josko.passenger.update.dto.PassengerUpdate;
 import com.josko.passenger.update.slices.SliceData;
-import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.CloseableThreadContext;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,8 +19,9 @@ import java.util.stream.Collectors;
 import static com.josko.passenger.config.Definitions.PAX_ID_MDC;
 
 @Component
-@Log4j2
 public class PassengerUpdateHandlerImpl implements PassengerUpdateHandler {
+    
+    private final Logger debugLog = LogManager.getLogger(Definitions.DEBUG_LOGGER);
 
     private final PassengerService passengerService;
     private final KeyMapper keyMapper;
@@ -42,8 +45,8 @@ public class PassengerUpdateHandlerImpl implements PassengerUpdateHandler {
 
         if (passengerIDOpt.isEmpty() && slices.isEmpty())
             return;
-        
-        log.debug("Handling update for passenger with keys {}", passengerUpdate.getKeys().stream()
+
+        debugLog.debug("Handling update for passenger with keys {}", passengerUpdate.getKeys().stream()
                 .map(Object::toString)
                 .collect(Collectors.joining(",")));
 

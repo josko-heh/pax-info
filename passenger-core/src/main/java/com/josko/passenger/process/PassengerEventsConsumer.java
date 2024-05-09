@@ -1,12 +1,14 @@
 package com.josko.passenger.process;
 
-import com.josko.passenger.update.dto.PassengerUpdate;
+import com.josko.passenger.config.Definitions;
 import com.josko.passenger.service.handler.PassengerUpdateHandler;
+import com.josko.passenger.update.dto.PassengerUpdate;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -16,10 +18,12 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @RequiredArgsConstructor
-@Log4j2
 public class PassengerEventsConsumer extends RouteBuilder {
 
     private static final String ERROR_ROUTE = "direct:errorRoute";
+   
+    private final Logger errorLog = LogManager.getLogger(Definitions.ERROR_LOGGER);
+    private final Logger debugLog = LogManager.getLogger(Definitions.DEBUG_LOGGER);
 
     @Value("${passenger.update.jms.source}")
     private String source;
@@ -29,7 +33,7 @@ public class PassengerEventsConsumer extends RouteBuilder {
     private final Processor logError = exchange -> {
         PassengerUpdate update = exchange.getIn().getBody(PassengerUpdate.class);
         var ex = exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Exception.class);
-        log.error( "Error while handling update from datasource {}.", update.getDatasource(), ex);
+        errorLog.error( "Error while handling update from datasource {}.", update.getDatasource(), ex);
     };
 
     @Override
@@ -40,7 +44,7 @@ public class PassengerEventsConsumer extends RouteBuilder {
         
         from(source).process(exchange -> {
             PassengerUpdate update = exchange.getIn().getBody(PassengerUpdate.class);
-            log.debug("Received new update with reference {} from {}@{}",
+            debugLog.debug("Received new update with reference {} from {}@{}",
                     update.getReference(), update.getDatasource(), update.getUpdateTs());
             eventProcessor.handle(update);
         });

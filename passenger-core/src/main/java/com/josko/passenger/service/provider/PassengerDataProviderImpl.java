@@ -2,15 +2,14 @@ package com.josko.passenger.service.provider;
 
 import com.josko.passenger.exceptions.PassengerModuleException;
 import com.josko.passenger.persistence.entity.keys.KeyEntity;
+import com.josko.passenger.presentation.dto.slices.PassengerData;
+import com.josko.passenger.presentation.dto.slices.SliceDTO;
 import com.josko.passenger.service.PassengerService;
 import com.josko.passenger.service.mappers.KeyMapper;
 import com.josko.passenger.service.mappers.SliceMapper;
 import com.josko.passenger.update.dto.keys.KeyDTO;
-import com.josko.passenger.presentation.dto.slices.SliceDTO;
-import com.josko.passenger.presentation.dto.slices.PassengerData;
 import com.josko.passenger.update.slices.Slice;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.CloseableThreadContext.Instance;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -25,7 +24,6 @@ import static org.apache.logging.log4j.CloseableThreadContext.put;
 
 @Service
 @RequiredArgsConstructor
-@Log4j2
 public class PassengerDataProviderImpl implements PassengerDataProvider {
 
     private final PassengerService paxService;
@@ -38,8 +36,6 @@ public class PassengerDataProviderImpl implements PassengerDataProvider {
                 .orElseThrow(() -> new PassengerModuleException("No passenger entity found.", HttpStatus.NOT_FOUND));
         
         try (final Instance ctc = put(PAX_ID_MDC, passengerID.toString())) {
-            log.debug("Passenger found!");
-
             Set<Slice> slices = paxService.retrieveSlices(passengerID, sliceMapper.map(dataSliceTypes));
 
             Set<KeyEntity> keys = paxService.getPassengerKeys(passengerID);
