@@ -10,5 +10,6 @@
     <include file="release-1.0/remove_purgets_from_slices.sql" relativeToChangelogFile="true" />
     <include file="release-1.0/create_pnr_table.sql" relativeToChangelogFile="true" />
     <include file="release-1.0/alter_locator.sql" relativeToChangelogFile="true" />
+    <include file="release-1.0/create_security_tables.sql" relativeToChangelogFile="true" />
 
 </databaseChangeLog>

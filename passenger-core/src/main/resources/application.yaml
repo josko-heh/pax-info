@@ -21,3 +21,5 @@ passenger:
     update:
         jms:
             source: jms:queue:passenger.update
+            
+jwt.base64-secret: MzMzYjg3YTRmYmU0YmM4YzJkZWE4NTJlZGEzMDgzZjkzOWNjM2MwMWQ4NzI2MjgwZWU0MzM5ZTY0MGEzMjg1YzIwMjU1MWM5ZTNkMzg5YWNiMjExNGJlMTE4NjZlMWMxODIxNjYwMTBkZTRiZWRlNzU3MDc5ZThhMDcxMjlkMGE

@@ -13,5 +13,7 @@ public class Definitions {
 	public static final String DATA_LOGGER = "dataLogger";
 	public static final String DEBUG_LOGGER = "debugLogger";
 	public static final Marker REQ = MarkerManager.getMarker("REQ");
-	public static final Marker RES = MarkerManager.getMarker("RES");      
+	public static final Marker RES = MarkerManager.getMarker("RES");
+
+	public static final Marker SECURITY = MarkerManager.getMarker("SEC");
 }
