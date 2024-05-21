@@ -16,7 +16,7 @@ public class PassengerDataController {
 
 	private final PassengerDataProvider dataProvider;
 
-	@GetMapping
+	@PostMapping
 	@Secured("ROLE_USER")
 	public ResponseEntity<PassengerData> getPassengerData(@RequestBody PassengerDataRequest request) {
 		var passengerData = dataProvider.retrieve(request.getRequestedTypes(), request.getKey());
